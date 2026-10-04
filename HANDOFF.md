@@ -11,8 +11,8 @@ Running log for teammates picking this up. Newest first.
   `python -m pipeline.cli extract --customer amazon --limit 10` as a smoke test.
 - Amazon corpus in `data/pipeline.sqlite`: 1 x 10-K, 3 x 10-Q, 28 x 8-K documents
   (16 bodies + 12 exhibits), 3 earnings transcripts (Q4 2025, Q1 2026, Q2 2026),
-  news articles still being collected at time of writing (see `status`).
-- 298 chunks, 150 marked relevant by the prefilter.
+  65 news articles (trade press + Google News, last 180 days).
+- 363 chunks, 215 marked relevant by the prefilter (news chunks always pass).
 
 ### What worked
 - **EDGAR** is the cleanest source. Free, fast, structured. Item split works for
