@@ -1,0 +1,22 @@
+# Dark-green pilot customers. Add more from Sarah's list of 25 as we scale.
+# cik: SEC Central Index Key (10 digits, zero-padded). ticker used for transcript lookup.
+customers:
+  - name: Amazon
+    slug: amazon
+    cik: "0001018724"
+    ticker: AMZN
+    aliases: ["Amazon", "Amazon.com", "AMZN", "Amazon Logistics", "Amazon Fulfillment"]
+    news_queries:
+      - "Amazon fulfillment center"
+      - "Amazon warehouse"
+      - "Amazon distribution center"
+      - "Amazon delivery station"
+      - "Amazon logistics network"
+      - "Amazon data center"
+  # Examples to add next (public companies only, per Sarah):
+  # - name: GXO Logistics
+  #   slug: gxo
+  #   cik: "0001852244"
+  #   ticker: GXO
+  #   aliases: ["GXO", "GXO Logistics"]
+  #   news_queries: ["GXO warehouse", "GXO Logistics contract"]

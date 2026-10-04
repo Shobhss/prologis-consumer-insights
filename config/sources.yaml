@@ -1,0 +1,68 @@
+# Shared source configuration. Customer-specific queries live in customers.yaml.
+# tier: 1 primary filings, 2 earnings calls, 3 company announcements, 4 trade press, 5 market context
+# reliability: 3 high (primary/legal), 2 medium (established trade press), 1 low (aggregators, blogs)
+
+edgar:
+  forms: ["10-K", "10-Q", "8-K"]
+  since_days: 400          # ~ last 4 quarters plus margin
+  include_8k_exhibits: true
+
+transcripts:
+  provider: motley_fool    # motley_fool | fmp
+  since_days: 400
+  max_transcripts: 5
+
+news:
+  since_days: 180
+  max_per_query: 15
+  google_news: true
+  trade_feeds:
+    - name: Supply Chain Dive
+      url: https://www.supplychaindive.com/feeds/news/
+      reliability: 2
+    - name: FreightWaves
+      url: https://www.freightwaves.com/feed
+      reliability: 2
+    - name: DC Velocity
+      url: https://www.dcvelocity.com/rss/
+      reliability: 2
+    - name: Logistics Management
+      url: https://www.logisticsmgmt.com/rss/all
+      reliability: 2
+    - name: Modern Distribution Management
+      url: https://www.mdm.com/feed/
+      reliability: 2
+    - name: Bisnow
+      url: https://www.bisnow.com/rss
+      reliability: 2
+    - name: GlobeSt
+      url: https://www.globest.com/feed/
+      reliability: 2
+  # Domains we never treat as evidence (Sarah: no Substack, no Reddit)
+  blocked_domains:
+    - reddit.com
+    - substack.com
+    - medium.com
+    - quora.com
+    - youtube.com
+    - x.com
+    - twitter.com
+    - facebook.com
+    - seekingalpha.com      # paywalled; links will not open for reviewers
+  # Domains treated as high reliability when they appear via Google News
+  high_reliability_domains:
+    - sec.gov
+    - aboutamazon.com
+    - prnewswire.com
+    - businesswire.com
+    - reuters.com
+    - wsj.com
+    - bloomberg.com
+    - ft.com
+    - supplychaindive.com
+    - freightwaves.com
+    - dcvelocity.com
+    - logisticsmgmt.com
+    - bisnow.com
+    - globest.com
+    - costar.com
