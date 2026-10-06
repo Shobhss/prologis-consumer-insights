@@ -76,7 +76,9 @@ Run tests:
 `outputs/dashboard/index.html` is a single self-contained page: KPI tiles, signals
 by type, the actions to take this cycle, and a filterable table with the insight,
 the source link, what it means for Prologis, and the go-do. Quotes expand inline.
-Light and dark mode. Design follows the shadcn/ui dashboard example.
+Light and dark mode. Styled with prologis.com's design tokens: Inter type, the
+`--c-teal` / `--c-green` / `--c-blue` palette, the near-black header band, white
+square-cornered cards and the cyan call-to-action accent.
 
 Regenerate with `python -m pipeline.cli dashboard` (the `report` stage also does it).
 

@@ -4,8 +4,8 @@ Written to outputs/dashboard/index.html so the folder can be deployed as a stati
 site (Vercel, Netlify, GitHub Pages). No server, no build step: the page embeds the
 signal data as JSON and renders with vanilla JS.
 
-Design follows the shadcn/ui dashboard example (github.com/shadcn-ui/ui):
-zinc palette, Geist type, bordered cards, dense table, light and dark mode.
+Design follows prologis.com: Inter type, the site's teal/green/blue palette,
+near-black header band, white cards, cyan accent, light and dark mode.
 
 Each row shows the four things reviewers asked for: the insight, the source link,
 what it means for Prologis, and the action to take. The verbatim quote is one

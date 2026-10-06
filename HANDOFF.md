@@ -38,7 +38,10 @@ Running log for teammates picking this up. Newest first.
   `outputs/dashboard/index.html` with all verified signals embedded as JSON.
   No build step; deploy the folder to Vercel. Checked in Chrome at desktop and
   phone widths, light and dark.
-- The template is plain HTML/CSS/JS styled after shadcn/ui's dashboard example.
+- The template is plain HTML/CSS/JS styled to match prologis.com (tokens read off
+  the live site: Inter, #191b1d header, teal #187770, green #1b4d4a, blue #2c728a,
+  cyan #00dcff accent). The wordmark is text, not the logo asset; swap in the
+  official SVG if Sarah's team wants it.
   To change columns or filters edit the template; data fields come from `FIELDS`
   in `dashboard.py`.
 
