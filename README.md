@@ -51,6 +51,13 @@ Stages can be run one at a time; each is idempotent and skips work already done:
 .venv/bin/python -m pipeline.cli status    --customer amazon
 ```
 
+Import signals produced outside the API stage (a reviewer, or Claude in a Claude Code session)
+through the same quote verification:
+
+```bash
+.venv/bin/python -m pipeline.import_signals docs/samples/amazon_signals_2026-10-05.json
+```
+
 Record reviewer feedback on a signal (feeds the learning loop):
 
 ```bash
@@ -93,6 +100,7 @@ advised against chasing them.
 | `pipeline/taxonomy.py` | The 12 signal types (single source of truth) |
 | `pipeline/llm.py` | Anthropic SDK wrapper: structured outputs, caching, fallbacks |
 | `pipeline/extract.py` | Signal extraction and quote verification |
+| `pipeline/import_signals.py` | Import externally produced signals through the same checks |
 | `pipeline/implicate.py` | Implications, go-dos, audience, horizon |
 | `pipeline/report.py` | Excel and Markdown outputs |
 | `pipeline/store.py` | SQLite schema |
@@ -100,7 +108,7 @@ advised against chasing them.
 | `config/customers.yaml` | Customer list |
 | `config/sources.yaml` | Feeds, tiers, blocked domains |
 | `config/prologis_context.md` | Prologis facts injected into the implication prompt |
-| `docs/` | Plan, signal taxonomy, source catalog |
+| `docs/` | Plan, signal taxonomy, source catalog, sample signal sets |
 | `tests/` | Unit tests for grounding, chunking, transcript parsing |
 | `data/` | SQLite store and raw text (git-ignored) |
 | `outputs/` | Generated reports (git-ignored except structure) |

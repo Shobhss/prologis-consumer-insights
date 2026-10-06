@@ -2,6 +2,45 @@
 
 Running log for teammates picking this up. Newest first.
 
+## 2026-10-05 (Shobhit): first Amazon signal table and brief, repo pushed
+
+### State
+- Repo is on GitHub: https://github.com/Shobhss/prologis-consumer-insights (main).
+- First end-to-end output for Amazon is in `outputs/amazon/2026-10-05/` (`signals.xlsx`,
+  `brief.md`). 29 verified signals across 7 types; 19 clusters.
+- Extraction was done **in-session by Claude, not by the API stage**, because there
+  is still no `ANTHROPIC_API_KEY`. The rows went through the same quote verification
+  as `extract.py` via the new `pipeline/import_signals.py`; all 29 passed, 0 rejected.
+  The source JSON is `docs/samples/amazon_signals_2026-10-05.json` and doubles as the
+  first hand-labeled set for evaluating the automated extractor once a key exists.
+- Added Amazon's FY2024 10-K so Item 2 Properties can be compared year over year.
+
+### What the sample shows
+- Filings are the highest-value source: Item 2 Properties and the lease note gave
+  the four highest-confidence rows (leased vs owned sq ft, lease cost, lease
+  liabilities, build-to-suit obligations). These directly answer Sarah's own-vs-lease
+  question: ~90% leased, owned growing faster but from a small base, mostly AWS.
+- Transcripts gave the forward-looking network and automation signals
+  (10 regions up from 8, 2x robotic arms in 2026, 2x AWS power by 2027).
+- News gave facility-level geography (Sheboygan, Norwich, Kapolei, DFW, Wharton
+  County TX, Schuylkill County PA) but at low confidence because several hits were
+  RSS-summary only and local outlets score reliability 1.
+
+### Fixes made today
+- Lease note detection now keys on the "Note N — LEASES" heading; the first version
+  grabbed the goodwill section.
+- `fetch/news.py` commits per article and fetches feeds with a timeout; the first
+  run hung on `feedparser` and lost everything when killed.
+- `fetch/transcripts.py` skips URLs that fail instead of aborting the run.
+
+### Open items added
+- Local newspapers (Houston Chronicle, Star-Advertiser) are scored reliability 1 like
+  blogs. Add a "regional press" list at reliability 2 in `config/sources.yaml`.
+- Several Google News hits were headline-only (`full_text=false`). Consider a second
+  fetch attempt with a different extractor, or an archive fallback.
+- Market-level signals that are not about the customer (e.g. Fort Worth data center
+  moratorium) are currently dropped. Decide whether to keep a "market context" table.
+
 ## 2026-10-03 (Shobhit): pipeline built, Amazon corpus collected, LLM stages ready
 
 ### State

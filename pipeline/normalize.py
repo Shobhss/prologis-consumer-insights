@@ -87,9 +87,13 @@ def split_filing_sections(text: str, form: str = "10-K") -> dict[str, str]:
     # Lease note lives inside Item 8; pull it out as its own section when found.
     fin_key = "Item 8 Financial Statements" if not is_10q else "Part I Item 1 Financial Statements"
     fin = sections.get(fin_key, "")
-    m = re.search(r"(?im)^\s*(note\s+\d+\s*[\-\u2014:]?\s*)?leases?\s*$", fin)
-    if m:
-        sections["Lease Note"] = fin[m.start(): m.start() + 20000]
+    # Heading renders as "Note 4 \u2014\nLEASES" (iXBRL puts the title on its own line)
+    hits = list(re.finditer(r"(?i)note\s+\d+\s*[\-\u2014\u2013:]?\s*\n?\s*leases\s*\n", fin))
+    if hits:
+        start = hits[-1].start()
+        nxt = re.search(r"(?i)\nnote\s+\d+\s*[\-\u2014\u2013:]", fin[start + 50:])
+        end = start + 50 + nxt.start() if nxt else start + 20000
+        sections["Lease Note"] = fin[start:end]
     return sections or {"Full text": text}
 
 
