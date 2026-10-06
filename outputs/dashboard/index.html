@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Customer Intelligence</title>
+<meta name="description" content="Verified customer signals, sources, implications for Prologis and actions to take.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --background: hsl(0 0% 100%);
+    --foreground: hsl(240 10% 3.9%);
+    --card: hsl(0 0% 100%);
+    --muted: hsl(240 4.8% 95.9%);
+    --muted-foreground: hsl(240 3.8% 46.1%);
+    --border: hsl(240 5.9% 90%);
+    --input: hsl(240 5.9% 90%);
+    --primary: hsl(240 5.9% 10%);
+    --primary-foreground: hsl(0 0% 98%);
+    --accent: hsl(240 4.8% 95.9%);
+    --ring: hsl(240 5% 64.9%);
+    --bar: hsl(240 5.9% 10%);
+    --bar-track: hsl(240 4.8% 93%);
+    --now: hsl(142 72% 29%);
+    --now-bg: hsl(142 76% 95%);
+    --watch: hsl(38 92% 40%);
+    --watch-bg: hsl(48 96% 93%);
+    --radius: 0.5rem;
+    --font: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --background: hsl(240 10% 3.9%); --foreground: hsl(0 0% 98%); --card: hsl(240 10% 3.9%);
+      --muted: hsl(240 3.7% 15.9%); --muted-foreground: hsl(240 5% 64.9%); --border: hsl(240 3.7% 15.9%);
+      --input: hsl(240 3.7% 15.9%); --primary: hsl(0 0% 98%); --primary-foreground: hsl(240 5.9% 10%);
+      --accent: hsl(240 3.7% 15.9%); --ring: hsl(240 4.9% 83.9%); --bar: hsl(0 0% 98%); --bar-track: hsl(240 3.7% 18%);
+      --now: hsl(142 70% 55%); --now-bg: hsl(142 40% 14%); --watch: hsl(45 93% 60%); --watch-bg: hsl(40 40% 14%);
+    }
+  }
+  :root[data-theme="dark"] {
+    --background: hsl(240 10% 3.9%); --foreground: hsl(0 0% 98%); --card: hsl(240 10% 3.9%);
+    --muted: hsl(240 3.7% 15.9%); --muted-foreground: hsl(240 5% 64.9%); --border: hsl(240 3.7% 15.9%);
+    --input: hsl(240 3.7% 15.9%); --primary: hsl(0 0% 98%); --primary-foreground: hsl(240 5.9% 10%);
+    --accent: hsl(240 3.7% 15.9%); --ring: hsl(240 4.9% 83.9%); --bar: hsl(0 0% 98%); --bar-track: hsl(240 3.7% 18%);
+    --now: hsl(142 70% 55%); --now-bg: hsl(142 40% 14%); --watch: hsl(45 93% 60%); --watch-bg: hsl(40 40% 14%);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: var(--background); color: var(--foreground); font-family: var(--font); font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  button, select, input { font: inherit; color: inherit; }
+
+  .header { border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--background); z-index: 10; }
+  .header-inner { max-width: 1400px; margin: 0 auto; padding: 0 16px; height: 56px; display: flex; align-items: center; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; white-space: nowrap; }
+  .brand .dot { width: 20px; height: 20px; border-radius: 6px; background: var(--primary); display: inline-block; }
+  .tabs { display: flex; gap: 2px; background: var(--muted); padding: 3px; border-radius: var(--radius); margin-left: 8px; }
+  .tab { border: 0; background: transparent; padding: 5px 12px; border-radius: 6px; color: var(--muted-foreground); cursor: pointer; font-weight: 500; }
+  .tab[aria-selected="true"] { background: var(--card); color: var(--foreground); box-shadow: 0 1px 2px rgb(0 0 0 / .08); }
+  .spacer { flex: 1; }
+  .meta { color: var(--muted-foreground); font-size: 12px; white-space: nowrap; }
+  .icon-btn { border: 1px solid var(--border); background: var(--card); border-radius: var(--radius); width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+  .icon-btn:hover { background: var(--accent); }
+
+  .main { max-width: 1400px; margin: 0 auto; padding: 20px 16px 48px; display: grid; gap: 16px; }
+  h1 { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; margin: 0; }
+  .sub { color: var(--muted-foreground); margin: 2px 0 0; }
+
+  .grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+  .grid-2 { display: grid; grid-template-columns: 2fr 3fr; gap: 16px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); }
+  .card-h { padding: 16px 20px 0; display: flex; align-items: center; justify-content: space-between; }
+  .card-t { font-size: 13px; font-weight: 500; margin: 0; }
+  .card-b { padding: 8px 20px 20px; }
+  .kpi { font-size: 26px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; }
+  .kpi-sub { color: var(--muted-foreground); font-size: 12px; margin-top: 4px; }
+
+  .bars { display: grid; gap: 8px; margin-top: 8px; }
+  .bar-row { display: grid; grid-template-columns: 170px 1fr 36px; align-items: center; gap: 10px; cursor: pointer; }
+  .bar-row:hover .bar-fill { opacity: .8; }
+  .bar-label { font-size: 12px; color: var(--muted-foreground); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar-track { background: var(--bar-track); height: 10px; border-radius: 0 4px 4px 0; overflow: hidden; }
+  .bar-fill { height: 100%; background: var(--bar); border-radius: 0 4px 4px 0; transition: width .3s; }
+  .bar-n { font-variant-numeric: tabular-nums; font-size: 12px; text-align: right; }
+
+  .actions { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 10px; }
+  .actions li { display: grid; grid-template-columns: 8px 1fr; gap: 10px; align-items: start; }
+  .actions .pip { width: 8px; height: 8px; border-radius: 50%; background: var(--now); margin-top: 7px; }
+  .actions .who { color: var(--muted-foreground); font-size: 12px; }
+
+  .toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .field { border: 1px solid var(--input); background: var(--card); border-radius: var(--radius); height: 36px; padding: 0 10px; display: inline-flex; align-items: center; gap: 6px; }
+  .field input, .field select { border: 0; background: transparent; outline: none; height: 100%; min-width: 0; }
+  .field.search { flex: 1 1 240px; }
+  .field.search input { width: 100%; }
+  .field input[type=range] { width: 110px; }
+  .field .lbl { color: var(--muted-foreground); font-size: 12px; }
+  .count { color: var(--muted-foreground); font-size: 12px; margin-left: auto; }
+  .btn { border: 1px solid var(--border); background: var(--card); border-radius: var(--radius); height: 36px; padding: 0 12px; cursor: pointer; font-weight: 500; }
+  .btn:hover { background: var(--accent); }
+
+  table { width: 100%; border-collapse: collapse; }
+  thead th { text-align: left; font-weight: 500; color: var(--muted-foreground); font-size: 12px; padding: 10px 12px; border-bottom: 1px solid var(--border); background: var(--muted); }
+  thead th:first-child { border-top-left-radius: var(--radius); }
+  thead th:last-child { border-top-right-radius: var(--radius); }
+  tbody td { padding: 14px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: 0; }
+  tbody tr.row:hover { background: color-mix(in srgb, var(--accent) 55%, transparent); }
+  .th-sort { cursor: pointer; user-select: none; }
+  .col-insight { width: 32%; } .col-source { width: 14%; } .col-impl { width: 30%; } .col-action { width: 24%; }
+  .headline { font-weight: 500; }
+  .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .badge { display: inline-flex; align-items: center; gap: 4px; border: 1px solid var(--border); border-radius: 999px; padding: 1px 8px; font-size: 11px; color: var(--muted-foreground); background: var(--card); white-space: nowrap; }
+  .badge.now { color: var(--now); background: var(--now-bg); border-color: transparent; font-weight: 500; }
+  .badge.watch { color: var(--watch); background: var(--watch-bg); border-color: transparent; font-weight: 500; }
+  .conf { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+  .conf .track { width: 90px; height: 6px; background: var(--bar-track); border-radius: 3px; overflow: hidden; }
+  .conf .fill { height: 100%; background: var(--bar); border-radius: 3px; }
+  .conf .v { font-family: var(--mono); font-size: 11px; color: var(--muted-foreground); }
+  .src a { font-weight: 500; text-decoration: none; border-bottom: 1px solid var(--border); }
+  .src a:hover { border-bottom-color: var(--foreground); }
+  .src .kind { display: block; color: var(--muted-foreground); font-size: 12px; margin-top: 2px; font-family: var(--mono); }
+  .quote-btn { border: 0; background: none; padding: 0; margin-top: 8px; color: var(--muted-foreground); font-size: 12px; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
+  .quote { display: none; margin-top: 8px; padding: 10px 12px; border-left: 2px solid var(--border); background: var(--muted); border-radius: 0 6px 6px 0; font-size: 13px; color: var(--muted-foreground); white-space: pre-wrap; }
+  .quote.open { display: block; }
+  .godo { font-weight: 500; }
+  .godo.none { color: var(--muted-foreground); font-weight: 400; }
+  .who { color: var(--muted-foreground); font-size: 12px; margin-top: 4px; }
+  .empty { padding: 40px; text-align: center; color: var(--muted-foreground); }
+  .footer { color: var(--muted-foreground); font-size: 12px; }
+  .mobile-label { display: none; }
+
+  @media (max-width: 1000px) {
+    .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-2 { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 800px) {
+    .header-inner { gap: 8px; }
+    .meta { display: none; }
+    table, tbody, tr, td { display: block; width: 100%; }
+    thead { display: none; }
+    tbody tr.row { border-bottom: 1px solid var(--border); padding: 6px 0; }
+    tbody td { border-bottom: 0; padding: 8px 14px; }
+    .mobile-label { display: block; font-size: 11px; color: var(--muted-foreground); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 3px; }
+  }
+  @media (max-width: 520px) { .grid-4 { grid-template-columns: 1fr; } .bar-row { grid-template-columns: 110px 1fr 30px; } }
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <div class="brand"><span class="dot" aria-hidden="true"></span>Customer Intelligence</div>
+    <div class="tabs" id="customer-tabs" role="tablist" aria-label="Customer"></div>
+    <div class="spacer"></div>
+    <span class="meta" id="meta"></span>
+    <button class="icon-btn" id="theme" title="Toggle theme" aria-label="Toggle theme">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="main">
+  <div>
+    <h1 id="title">Signals</h1>
+    <p class="sub">Verified customer signals with source, implication for Prologis, and the action to take. Every quote is verbatim from the linked source.</p>
+  </div>
+
+  <section class="grid-4" id="kpis"></section>
+
+  <section class="grid-2">
+    <div class="card">
+      <div class="card-h"><h2 class="card-t">Signals by type</h2><span class="meta">click to filter</span></div>
+      <div class="card-b"><div class="bars" id="bars"></div></div>
+    </div>
+    <div class="card">
+      <div class="card-h"><h2 class="card-t">Actions to take this cycle</h2><span class="meta" id="actions-meta"></span></div>
+      <div class="card-b"><ul class="actions" id="actions"></ul></div>
+    </div>
+  </section>
+
+  <section class="toolbar" id="toolbar">
+    <label class="field search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" placeholder="Search insights, places, quotes" aria-label="Search"></label>
+    <label class="field"><span class="lbl">Type</span><select id="f-type"><option value="">All</option></select></label>
+    <label class="field"><span class="lbl">Audience</span><select id="f-aud"><option value="">All</option><option value="c-suite">C-suite</option><option value="account_team">Account team</option><option value="leasing">Leasing</option><option value="all">Everyone</option></select></label>
+    <label class="field"><span class="lbl">Horizon</span><select id="f-hor"><option value="">All</option><option value="now">Act now</option><option value="watch">Watch</option></select></label>
+    <label class="field"><span class="lbl">Min confidence</span><input id="f-conf" type="range" min="0" max="1" step="0.05" value="0"><span class="v" id="f-conf-v" style="font-family:var(--mono);font-size:12px">0.00</span></label>
+    <button class="btn" id="reset">Reset</button>
+    <span class="count" id="count"></span>
+  </section>
+
+  <section class="card">
+    <table id="table">
+      <thead><tr>
+        <th class="col-insight th-sort" data-sort="confidence">Insight</th>
+        <th class="col-source th-sort" data-sort="published_at">Source</th>
+        <th class="col-impl">What it means for Prologis</th>
+        <th class="col-action">Action</th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </section>
+
+  <p class="footer" id="footer"></p>
+</main>
+
+<script id="data" type="application/json">{"generated": "2026-10-05", "customers": {"amazon": "Amazon"}, "types": {"FOOT+": "Footprint expansion", "FOOT-": "Footprint contraction", "NET": "Network strategy shift", "CAPEX": "Capex guidance", "OWN/LEASE": "Own vs lease posture", "GEO": "Geographic shift", "DATACENTER": "Data center demand", "SECT": "Sector demand trend", "STRESS": "Financial stress on real estate", "AUTO": "Automation and labor", "M&A": "M&A / portfolio change", "ENERGY": "Power and sustainability (peripheral)"}, "signals": [{"signal_id": "3a2c07e956f2ee4d", "customer": "amazon", "signal_code": "OWN/LEASE", "headline": "Build-to-suit financing obligations for fulfillment and data center facilities grew to $8.9B long-term at June 30, 2026 from $7.8B at Dec 31, 2025.", "quote": "7.8 billion and $ 8.9 billion are recorded within “Other long-term liabilities” as of December 31, 2025 and June 30, 2026", "geography": "Global", "magnitude": "$8.9B, +$1.1B in six months", "timeframe": "H1 2026", "direction": "expansion", "specificity": 3, "source_reliability": 3, "corroboration": 3, "confidence": 1.0, "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm", "source_type": "10-Q", "published_at": "2026-07-31", "implication": "Amazon is taking on more build-to-suit projects, where it controls the building during construction. Likely a growing share of new Amazon space is developer-built-to-suit rather than spec leasing.", "go_do": "Development: review the Amazon build-to-suit pipeline and land positions in regional hub markets.", "audience": "c-suite", "horizon": "watch"}, {"signal_id": "76c051b55aa3c43e", "customer": "amazon", "signal_code": "OWN/LEASE", "headline": "Amazon operated 741.5M sq ft leased vs 78.1M sq ft owned at Dec 31, 2025; about 90% of its footprint is leased.", "quote": "Total | 741,545 | 78,131", "geography": "Global", "magnitude": "741.5M sq ft leased, 78.1M sq ft owned", "timeframe": "FY2025", "direction": "neutral", "specificity": 3, "source_reliability": 3, "corroboration": 3, "confidence": 1.0, "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000004/amzn-20251231.htm", "source_type": "10-K", "published_at": "2026-02-06", "implication": "Amazon remains a lease-first operator. This is the primary source to rebut investor claims that Amazon is shifting to an owned model; owned space is growing faster but from a small base.", "go_do": "Investor relations and customer intelligence: cite this table in the next investor Q&A on Amazon ownership.", "audience": "c-suite", "horizon": "now"}, {"signal_id": "6a63844a90510fe6", "customer": "amazon", "signal_code": "OWN/LEASE", "headline": "Operating lease cost rose 17% to $14.0B in 2025, from $12.0B in 2024 and $10.6B in 2023.", "quote": "Operating lease cost | $ | 10,550 | $ | 11,961 | $ | 14,006", "geography": "Global", "magnitude": "$14.0B, +17% YoY", "timeframe": "FY2025", "direction": "expansion", "specificity": 3, "source_reliability": 3, "corroboration": 3, "confidence": 1.0, "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000004/amzn-20251231.htm", "source_type": "10-K", "published_at": "2026-02-06", "implication": "Lease spend is growing faster than leased square footage (5.6%), which points to higher rents on renewals and new space, consistent with Amazon absorbing newer, higher-cost buildings.", "go_do": "Leasing: reference rent-growth evidence in Amazon renewal negotiations; expect pushback on rate given Amazon's visible lease-cost inflation.", "audience": "leasing", "horizon": "now"}, {"signal_id": "bdbf2d5d3e61c69b", "customer": "amazon", "signal_code": "OWN/LEASE", "headline": "Gross operating lease liabilities rose to $106.9B at Dec 31, 2025 from $95.3B a year earlier.", "quote": "Gross lease liabilities | $ | 106,914 | $ | 14,917 | $ | 121,831", "geography": "Global", "magnitude": "$106.9B operating, $14.9B finance", "timeframe": "FY2025", "direction": "expansion", "specificity": 3, "source_reliability": 3, "corroboration": 3, "confidence": 1.0, "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000004/amzn-20251231.htm", "source_type": "10-K", "published_at": "2026-02-06", "implication": "Committed future lease payments grew $11.6B in a year. Amazon is signing more and longer leases, not retreating from leasing.", "go_do": "None; monitor.", "audience": "c-suite", "horizon": "watch"}, {"signal_id": "6d3dd64dfe3baa11", "customer": "amazon", "signal_code": "OWN/LEASE", "headline": "Weighted-average remaining operating lease term shortened to 10.0 years at Dec 31, 2025 from 10.6 years.", "quote": "Weighted-average remaining lease term – operating leases | 10.6 years | 10.0 years", "geography": "Global", "magnitude": "10.0 years, down 0.6", "timeframe": "FY2025", "direction": "shift", "specificity": 3, "source_reliability": 3, "corroboration": 3, "confidence": 1.0, "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000004/amzn-20251231.htm", "source_type": "10-K", "published_at": "2026-02-06", "implication": "Possible sign that recent leases are shorter or that a large cohort is approaching renewal. Worth watching against Prologis's own Amazon lease expiry schedule.", "go_do": "Customer-Led Solutions: pull the Amazon expiry ladder for 2027-2029 and compare to this trend.", "audience": "account_team", "horizon": "watch"}, {"signal_id": "5f4bfa3115fc5a1f", "customer": "amazon", "signal_code": "FOOT+", "headline": "North America fulfillment, data center and other leased space reached 474.1M sq ft at Dec 31, 2025, up 26.0M sq ft (5.8%) from 448.2M a year earlier.", "quote": "Fulfillment, data centers, and other | 474,128 | 45,803 | North America", "geography": "North America", "magnitude": "+26.0M sq ft leased YoY; owned +8.9M sq ft to 45.8M", "timeframe": "FY2025", "direction": "expansion", "specificity": 3, "source_reliability": 3, "corroboration": 2, "confidence": 0.95, "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000004/amzn-20251231.htm", "source_type": "10-K", "published_at": "2026-02-06", "implication": "Amazon added roughly 26M sq ft of leased logistics and data center space in North America in 2025, on the order of 2% of Prologis's entire portfolio. Owned space grew 24%, most likely data centers, so the owned share of this category edged up from 7.6% to 8.8%.", "go_do": "Customer-Led Solutions (Amazon account): quantify Prologis's share of the 26M sq ft of 2025 leased growth and the renewal pipeline for 2026.", "audience": "account_team", "horizon": "now"}, {"signal_id": "42b39ff7f79cbfff", "customer": "amazon", "signal_code": "FOOT+", "headline": "Prior-year baseline: North America fulfillment, data center and other space was 448.2M sq ft leased and 36.9M sq ft owned at Dec 31, 2024.", "quote": "Fulfillment, data centers, and other | 448,168 | 36,869 | North America", "geography": "North America", "magnitude": "448.2M sq ft leased, 36.9M sq ft owned", "timeframe": "FY2024", "direction": "neutral", "specificity": 3, "source_reliability": 3, "corroboration": 2, "confidence": 0.95, "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872425000004/amzn-20241231.htm", "source_type": "10-K", "published_at": "2025-02-07", "implication": "Baseline row used for the year-over-year comparison above.", "go_do": "None; monitor.", "audience": "account_team", "horizon": "watch"}, {"signal_id": "1a162b3b19114050", "customer": "amazon", "signal_code": "CAPEX", "headline": "Cash capex was $53.1B in Q2 2026 and $96.3B for H1 2026, for AWS infrastructure and additional fulfillment capacity, both expected to increase in 2026.", "quote": "Cash capital expenditures were $31.4 billion and $53.1 billion during Q2 2025 and Q2 2026, and $55.6 billion and $96.3 billion for the six months ended June 30, 2025 and 2026, which primarily reflect investments in technology infrastructure (the majority of which is to support AWS business growth) and in additional capacity to support our fulfillment network, both of which we expect to increase in 2026.", "geography": "Global", "magnitude": "$96.3B H1 2026, +73% YoY", "timeframe": "FY2026", "direction": "expansion", "specificity": 3, "source_reliability": 3, "corroboration": 1, "confidence": 0.9, "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm", "source_type": "10-Q", "published_at": "2026-07-31", "implication": "Fulfillment capacity spend is explicitly guided up for 2026 alongside AWS. Amazon is not in a footprint-digestion phase; expect continued new-building demand through 2027.", "go_do": "Leasing: keep Amazon on the active-requirement list in all regional hubs; do not price Amazon as a shrinking tenant.", "audience": "all", "horizon": "now"}, {"signal_id": "efdb47f19e7a0786", "customer": "amazon", "signal_code": "AUTO", "headline": "Amazon expects to more than double its fleet of robotic arms in 2026 and is retrofitting existing facilities.", "quote": "We're retrofitting our facilities with our latest generation technology, and we expect to more than double our fleet of robotic arms, like Cardinal and Sparrow, in 2026.", "geography": "Global", "magnitude": ">2x robotic arms", "timeframe": "2026", "direction": "shift", "specificity": 2, "source_reliability": 3, "corroboration": 2, "confidence": 0.8, "source_url": "https://www.fool.com/earnings/call-transcripts/2026/08/07/amazon-amzn-q2-2026-earnings-call-transcript/", "source_type": "transcript", "published_at": "2026-08-07", "implication": "Retrofits favor buildings with the power, floor loading and clear height to take automation. Older Amazon-leased buildings that cannot be retrofitted are at higher non-renewal risk.", "go_do": "Customer-Led Solutions: flag Amazon leases in buildings under 32 ft clear or with constrained power for early renewal conversations.", "audience": "account_team", "horizon": "watch"}, {"signal_id": "a387887532f00188", "customer": "amazon", "signal_code": "DATACENTER", "headline": "AWS is on track to double its power capacity by end of 2027 versus 2025 (CEO, Q2 2026).", "quote": "we expect to have double the power capacity by the end of 2027 that we had in 2025, and we continue to be on that track", "geography": "Global", "magnitude": "2x power capacity", "timeframe": "by end 2027", "direction": "expansion", "specificity": 2, "source_reliability": 3, "corroboration": 2, "confidence": 0.8, "source_url": "https://www.fool.com/earnings/call-transcripts/2026/08/07/amazon-amzn-q2-2026-earnings-call-transcript/", "source_type": "transcript", "published_at": "2026-08-07", "implication": "Doubling capacity in two years requires land and power in new markets, not only Northern Virginia. Likely continued competition for powered industrial land and for supplier space (switchgear, cooling, modular assembly) near data center clusters.", "go_do": "Development: inventory Prologis land with 50MW+ power access in Texas, Pennsylvania, Ohio and the Southeast for data center or supplier use.", "audience": "c-suite", "horizon": "now"}, {"signal_id": "e8877af3fc654436", "customer": "amazon", "signal_code": "AUTO", "headline": "Amazon has over one million robots in its fulfillment network (CEO, Q4 2025).", "quote": "we have over a million robots today in our fulfillment network", "geography": "Global", "magnitude": "1M+ robots", "timeframe": "Q4 2025 call", "direction": "shift", "specificity": 2, "source_reliability": 3, "corroboration": 2, "confidence": 0.8, "source_url": "https://www.fool.com/earnings/call-transcripts/2026/02/05/amazon-amzn-q4-2025-earnings-call-transcript/", "source_type": "transcript", "published_at": "2026-02-05", "implication": "Automation at this scale shapes Amazon's building spec. Expect requirements for higher power capacity and specific floor tolerances in new leases.", "go_do": "None; monitor.", "audience": "leasing", "horizon": "watch"}, {"signal_id": "5e9be137f78cfc6c", "customer": "amazon", "signal_code": "SECT", "headline": "Whole Foods has over 550 stores with 100 more planned in the next few years; perishable same-day sales grew over 40x (CEO, Q1 2026).", "quote": "Whole Foods Market also continues to accelerate with over 550 stores today and 100 more coming in the next few years", "geography": "United States", "magnitude": "+100 stores", "timeframe": "next few years", "direction": "expansion", "specificity": 2, "source_reliability": 3, "corroboration": 1, "confidence": 0.75, "source_url": "https://www.fool.com/earnings/call-transcripts/2026/04/29/amazon-amzn-q1-2026-earnings-call-transcript/", "source_type": "transcript", "published_at": "2026-04-29", "implication": "Grocery and perishables growth implies demand for temperature-controlled and cross-dock space near metros. Possible opportunity for cold-storage conversions in Prologis infill markets.", "go_do": "Leasing: track Amazon grocery fulfillment requirements with cold-chain specs in top-20 metros.", "audience": "leasing", "horizon": "watch"}, {"signal_id": "e87128576ee6d437", "customer": "amazon", "signal_code": "NET", "headline": "Amazon's US fulfillment network now runs 10 regions, up from 8, and regionalization has been extended to inbound delivery.", "quote": "we've extended the number of regions. You know, it was eight. It's now 10. We've extended regionalization to what we do with our inbound delivery to be much more efficient", "geography": "United States", "magnitude": "10 regions, from 8", "timeframe": "Q4 2025 call", "direction": "shift", "specificity": 2, "source_reliability": 3, "corroboration": 1, "confidence": 0.75, "source_url": "https://www.fool.com/earnings/call-transcripts/2026/02/05/amazon-amzn-q4-2025-earnings-call-transcript/", "source_type": "transcript", "published_at": "2026-02-05", "implication": "More regions means more, smaller regional inventory pools and more inbound cross-dock nodes. Likely demand for inbound consolidation buildings near ports and intermodal, and for mid-size fulfillment capacity in secondary metros that now anchor their own region.", "go_do": "Leasing (secondary metros): identify which two metros became new regional anchors and check Prologis availability near inbound gateways.", "audience": "leasing", "horizon": "now"}, {"signal_id": "9941d5a97dddae57", "customer": "amazon", "signal_code": "OWN/LEASE", "headline": "AWS pays cash for land, power and buildings 6 to 24 months before billing customers (CEO, Q1 2026).", "quote": "AWS is to lay out cash for land, power, buildings, chips, servers, and networking gear in advance of when we can monetize it", "geography": "Global", "magnitude": "unspecified", "timeframe": "Q1 2026 call", "direction": "shift", "specificity": 1, "source_reliability": 3, "corroboration": 3, "confidence": 0.7, "source_url": "https://www.fool.com/earnings/call-transcripts/2026/04/29/amazon-amzn-q1-2026-earnings-call-transcript/", "source_type": "transcript", "published_at": "2026-04-29", "implication": "The 'Amazon is buying' narrative is about AWS data centers, which Amazon tends to own, not about fulfillment. Likely explains the faster growth in owned square footage without any shift in the fulfillment leasing model.", "go_do": "Customer intelligence: use this distinction when investors ask about Amazon ownership trends.", "audience": "c-suite", "horizon": "now"}, {"signal_id": "77e12146a8cd8109", "customer": "amazon", "signal_code": "DATACENTER", "headline": "AWS added more data center capacity in 2025 than any other company (CFO, Q4 2025).", "quote": "In 2025, AWS added more data center capacity than any other company in the world.", "geography": "Global", "magnitude": "unspecified", "timeframe": "FY2025", "direction": "expansion", "specificity": 1, "source_reliability": 3, "corroboration": 2, "confidence": 0.65, "source_url": "https://www.fool.com/earnings/call-transcripts/2026/02/05/amazon-amzn-q4-2025-earnings-call-transcript/", "source_type": "transcript", "published_at": "2026-02-05", "implication": "Corroborates the scale of AWS build-out. The owned square footage growth in the 10-K is most likely this capacity.", "go_do": "None; monitor.", "audience": "c-suite", "horizon": "watch"}, {"signal_id": "b6f08125df091c5c", "customer": "amazon", "signal_code": "DATACENTER", "headline": "Amazon's $10B, nearly 3,000-acre data center campus in Wharton County near Houston cleared groundwater permitting; buildings could exceed 1.9M sq ft.", "quote": "Amazon’s plans to build a nearly 3,000-acre data center campus in Wharton County cleared a key hurdle recently when regulators approved groundwater permits needed for parts of the $10 billion project outside of Houston.", "geography": "Wharton County (Houston), TX", "magnitude": "$10B, ~3,000 acres, >1.9M sq ft", "timeframe": "permits Sept 2026", "direction": "expansion", "specificity": 3, "source_reliability": 1, "corroboration": 1, "confidence": 0.633, "source_url": "https://www.houstonchronicle.com/business/economy/article/amazon-data-center-aws-wharton-water-power-boling-22442480.php", "source_type": "news", "published_at": "2026-10-02", "implication": "A hyperscale campus an hour from Houston will draw electrical, cooling and modular suppliers needing industrial space in the Houston market, and raises land values on the city's southwest side.", "go_do": "Leasing (Houston): prospect data center equipment suppliers and contractors for the Wharton County build; check Prologis land and availability on the southwest corridor.", "audience": "leasing", "horizon": "now"}, {"signal_id": "d09209440825d5ac", "customer": "amazon", "signal_code": "FOOT+", "headline": "Amazon broke ground on a 216,000 sq ft delivery facility in Sheboygan, Wisconsin.", "quote": "Amazon breaks ground on 216,000-square-foot delivery facility in Sheboygan", "geography": "Sheboygan, WI", "magnitude": "216,000 sq ft", "timeframe": "Oct 2026", "direction": "expansion", "specificity": 3, "source_reliability": 1, "corroboration": 1, "confidence": 0.633, "source_url": "https://dailyreporter.com/2026/10/01/amazon-breaks-ground-on-216000-square-foot-delivery-facility-in-sheboygan/", "source_type": "news", "published_at": "2026-10-01", "implication": "Last-mile build in a tertiary market. Confirms the delivery-station rollout is still reaching smaller metros.", "go_do": "Leasing (Milwaukee/Chicago): note Amazon's tertiary-market delivery expansion when prospecting nearby.", "audience": "leasing", "horizon": "now"}, {"signal_id": "2092799bce9a9d05", "customer": "amazon", "signal_code": "NET", "headline": "Amazon applied for a 16,000 sq ft drone launch pad at its North Myrtle Beach, South Carolina facility for Prime Air.", "quote": "allow the facility to create a drone launch pad that’s about 16,000 square feet", "geography": "North Myrtle Beach, SC", "magnitude": "16,000 sq ft", "timeframe": "Oct 2026", "direction": "shift", "specificity": 3, "source_reliability": 1, "corroboration": 1, "confidence": 0.633, "source_url": "https://www.wmbfnews.com/2026/10/01/north-myrtle-beach-considers-amazon-facility-drone-launch-pad/", "source_type": "news", "published_at": "2026-10-01", "implication": "Drone delivery adds site requirements (launch pads, FAA clearances) to existing delivery stations. Possible future lease clauses on outdoor space use.", "go_do": "None; monitor.", "audience": "leasing", "horizon": "watch"}, {"signal_id": "90359e989f23149b", "customer": "amazon", "signal_code": "NET", "headline": "Amazon's same-day delivery network continues to expand (CEO, Q2 2026).", "quote": "our same-day network continues to expand", "geography": "unspecified", "magnitude": "unspecified", "timeframe": "Q2 2026 call", "direction": "expansion", "specificity": 1, "source_reliability": 3, "corroboration": 1, "confidence": 0.6, "source_url": "https://www.fool.com/earnings/call-transcripts/2026/08/07/amazon-amzn-q2-2026-earnings-call-transcript/", "source_type": "transcript", "published_at": "2026-08-07", "implication": "Same-day sites are smaller, infill buildings close to population. Possible continued demand for last-mile and sub-200K sq ft infill product in major metros.", "go_do": "None; monitor. Pair with facility-level news for specific metros.", "audience": "leasing", "horizon": "watch"}, {"signal_id": "ff2fa052a99683c3", "customer": "amazon", "signal_code": "SECT", "headline": "Amazon cites heightened transportation costs from fuel inflation tied to the Middle East conflict and driver capacity limits (CFO, Q2 2026).", "quote": "we face heightened transportation costs driven by fuel inflation from the conflict in the Middle East and higher line haul rates from driver capacity limitations", "geography": "unspecified", "magnitude": "unspecified", "timeframe": "Q2 2026 call", "direction": "neutral", "specificity": 1, "source_reliability": 3, "corroboration": 1, "confidence": 0.6, "source_url": "https://www.fool.com/earnings/call-transcripts/2026/08/07/amazon-amzn-q2-2026-earnings-call-transcript/", "source_type": "transcript", "published_at": "2026-08-07", "implication": "Possible push toward inventory placement closer to customers to cut line-haul miles, which favors regional and infill space over mega-hubs. Impact described as limited so far, consistent with what Prologis is hearing from other customers.", "go_do": "None; monitor. Revisit after Q3 2026 call.", "audience": "c-suite", "horizon": "watch"}, {"signal_id": "da7a70dba80464aa", "customer": "amazon", "signal_code": "NET", "headline": "A regionalized US network is operating at scale and continues to be refined (CFO, Q4 2025).", "quote": "In The US, a regionalized network is operating at scale and we continue to make refinements.", "geography": "United States", "magnitude": "unspecified", "timeframe": "Q4 2025 call", "direction": "shift", "specificity": 1, "source_reliability": 3, "corroboration": 1, "confidence": 0.6, "source_url": "https://www.fool.com/earnings/call-transcripts/2026/02/05/amazon-amzn-q4-2025-earnings-call-transcript/", "source_type": "transcript", "published_at": "2026-02-05", "implication": "Corroborates the regionalization signal from the same call. Network design is settled; changes from here are incremental.", "go_do": "None; monitor.", "audience": "leasing", "horizon": "watch"}, {"signal_id": "a11a237f0e310224", "customer": "amazon", "signal_code": "AUTO", "headline": "Local press confirms the SWF1 Rock Tavern walkout over safety complaints.", "quote": "Striking workers who walked off the job at Amazon's SWF1 warehouse facility in Rock Tavern on Tuesday claim Amazon has been ignoring their safety concerns for months.", "geography": "Rock Tavern (Hudson Valley), NY", "magnitude": "1 facility", "timeframe": "Sept 29, 2026", "direction": "neutral", "specificity": 2, "source_reliability": 1, "corroboration": 2, "confidence": 0.533, "source_url": "https://hudsonvalleypost.com/hudson-valley-amazon-workers-walk-off-job-over-safety-concerns/", "source_type": "news", "published_at": "2026-09-30", "implication": "Corroborates the union release from an independent outlet.", "go_do": "None; monitor.", "audience": "account_team", "horizon": "watch"}, {"signal_id": "0e6a88f9719abef1", "customer": "amazon", "signal_code": "AUTO", "headline": "Teamsters-organized workers at Amazon's SWF1 facility in Rock Tavern, New York, began an unfair labor practice strike over safety and conveyor speeds.", "quote": "Amazon warehouse workers at the SWF1 Facility in Rock Tavern, New York, went on an unfair labor practice strike today", "geography": "Rock Tavern (Hudson Valley), NY", "magnitude": "1 facility", "timeframe": "Sept 29, 2026", "direction": "neutral", "specificity": 2, "source_reliability": 1, "corroboration": 2, "confidence": 0.533, "source_url": "https://teamster.org/2026/09/amazon-warehouse-workers-at-swf1-launch-unfair-labor-practice-strike/", "source_type": "news", "published_at": "2026-09-29", "implication": "Labor friction at a Hudson Valley fulfillment center. Low direct real estate impact unless it spreads; relevant to automation pace at Northeast sites.", "go_do": "None; monitor.", "audience": "account_team", "horizon": "watch"}, {"signal_id": "5589f61be1d48f7e", "customer": "amazon", "signal_code": "FOOT+", "headline": "First public hearing held on an Amazon distribution center plan in Norwich, Connecticut.", "quote": "First hearing held on Amazon distribution center plan for Norwich", "geography": "Norwich, CT", "magnitude": "unspecified", "timeframe": "Oct 2026", "direction": "expansion", "specificity": 2, "source_reliability": 1, "corroboration": 1, "confidence": 0.483, "source_url": "https://theday.com/news/927900/first-hearing-held-on-amazon-distribution-center-plan-for-norwich/", "source_type": "news", "published_at": "2026-10-03", "implication": "Possible new site in eastern Connecticut, between the Boston and New York regions. Headline-only source; needs confirmation of size and type.", "go_do": "Leasing (Northeast): confirm size and timing with local brokers.", "audience": "leasing", "horizon": "watch"}, {"signal_id": "076b18ad29d44c56", "customer": "amazon", "signal_code": "FOOT+", "headline": "Amazon plans a $100M advanced manufacturing facility in Indiana.", "quote": "Amazon to Invest $100 Million in Advanced Manufacturing Facility in Indiana", "geography": "Indiana", "magnitude": "$100M", "timeframe": "Oct 2026", "direction": "expansion", "specificity": 2, "source_reliability": 1, "corroboration": 1, "confidence": 0.483, "source_url": "https://smallbiztrends.com/amazon-to-invest-100-million-in-advanced-manufacturing-facility-in-indiana/", "source_type": "news", "published_at": "2026-10-03", "implication": "Manufacturing rather than fulfillment; possible light-industrial requirement. Headline-only source.", "go_do": "Leasing (Indianapolis): identify the site and whether it is leased or owned.", "audience": "leasing", "horizon": "watch"}, {"signal_id": "a22a7c38c0061348", "customer": "amazon", "signal_code": "DATACENTER", "headline": "Amazon committed over $1B across five years to communities near its data centers amid growing local backlash.", "quote": "Amazon committed to donating more than $1 billion over the next five years to communities neighboring data centers", "geography": "United States", "magnitude": "$1B over 5 years", "timeframe": "Oct 2026", "direction": "neutral", "specificity": 2, "source_reliability": 1, "corroboration": 1, "confidence": 0.483, "source_url": "https://arstechnica.com/tech-policy/2026/10/amazons-1b-plan-to-combat-data-center-backlash-draws-more-backlash/", "source_type": "news", "published_at": "2026-10-02", "implication": "Community pushback is now a real constraint on where hyperscalers can build. Likely to steer new campuses toward jurisdictions with pre-approved sites, which favors landowners with entitled, powered land.", "go_do": "Development: prioritize entitlement work on Prologis land in data-center-friendly jurisdictions.", "audience": "c-suite", "horizon": "watch"}, {"signal_id": "cb657edea204a92a", "customer": "amazon", "signal_code": "DATACENTER", "headline": "Kline Township supervisors approved an Amazon data center project in Schuylkill County, Pennsylvania.", "quote": "Kline Township supervisors vote to approve Amazon data center project in Schuylkill County", "geography": "Schuylkill County, PA", "magnitude": "unspecified", "timeframe": "Oct 2026", "direction": "expansion", "specificity": 2, "source_reliability": 1, "corroboration": 1, "confidence": 0.483, "source_url": "https://www.wnep.com/article/news/local/schuylkill-county/kline-township-supervisors-vote-approve-amazon-data-center-project-schuylkill-county/523-00294d11-75b7-40e2-a9b4-cca61b84c2a8", "source_type": "news", "published_at": "2026-10-01", "implication": "Data center demand is reaching Northeast Pennsylvania, next to Prologis's Lehigh Valley market. Possible supplier and construction-staging demand for industrial space along I-81 and I-78.", "go_do": "Leasing (Lehigh Valley/Central PA): track supplier requirements tied to this project.", "audience": "leasing", "horizon": "watch"}, {"signal_id": "bebdb4a22349fc8f", "customer": "amazon", "signal_code": "FOOT+", "headline": "Amazon is planning a warehouse and fulfillment center in Kapolei, Hawaii, pending permits, a year after launching next-day delivery on Oahu.", "quote": "is planning a warehouse and order fulfillment center in Kapolei, pending permitting approvals", "geography": "Kapolei, HI", "magnitude": "unspecified", "timeframe": "pending permits", "direction": "expansion", "specificity": 2, "source_reliability": 1, "corroboration": 1, "confidence": 0.483, "source_url": "https://www.staradvertiser.com/2026/09/30/photo-gallery/amazon-planning-a-warehouse-and-order-fulfillment-center-in-kapolei/", "source_type": "news", "published_at": "2026-09-30", "implication": "Amazon is building in-market fulfillment where it previously served from the mainland. Likely similar moves in other logistics-constrained markets.", "go_do": "None; monitor.", "audience": "leasing", "horizon": "watch"}, {"signal_id": "841e9fba221f6fae", "customer": "amazon", "signal_code": "FOOT+", "headline": "An Amazon facility will be constructed at Dallas-Fort Worth International Airport, per a Texas state construction filing.", "quote": "an Amazon facility will be constructed at the Dallas-Fort Worth International Airport", "geography": "Dallas-Fort Worth, TX", "magnitude": "unspecified", "timeframe": "filed Sept 2026", "direction": "expansion", "specificity": 2, "source_reliability": 1, "corroboration": 1, "confidence": 0.483, "source_url": "https://communityimpact.com/grapevine-colleyville-southlake/development/430m-data-center-amazon-facility-at-dfw-airport-check-out-5-of-the-latest-construction-projects-around-dfw/", "source_type": "news", "published_at": "2026-09-30", "implication": "Airport-adjacent sites usually mean air cargo or sortation. Likely incremental to Amazon's existing DFW footprint rather than a replacement.", "go_do": "Leasing (DFW): confirm facility type and size from the TDLR filing.", "audience": "leasing", "horizon": "watch"}]}</script>
+<script>
+(function () {
+  const DATA = JSON.parse(document.getElementById('data').textContent);
+  const $ = (s) => document.querySelector(s);
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const AUD = {'c-suite': 'C-suite', 'account_team': 'Account team', 'leasing': 'Leasing', 'all': 'Everyone'};
+  const SRC = {'10-K': 'Annual report (10-K)', '10-Q': 'Quarterly report (10-Q)', '8-K': 'SEC filing (8-K)', 'transcript': 'Earnings call', 'news': 'News'};
+
+  const state = { customer: Object.keys(DATA.customers)[0] || '', q: '', type: '', aud: '', hor: '', conf: 0, sort: 'confidence', dir: -1 };
+  try { const saved = JSON.parse(localStorage.getItem('ci-state') || '{}'); Object.assign(state, saved); } catch (e) {}
+
+  // theme
+  const root = document.documentElement;
+  try { const t = localStorage.getItem('ci-theme'); if (t) root.dataset.theme = t; } catch (e) {}
+  $('#theme').addEventListener('click', () => {
+    const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    root.dataset.theme = dark ? 'light' : 'dark';
+    try { localStorage.setItem('ci-theme', root.dataset.theme); } catch (e) {}
+  });
+
+  // customer tabs
+  const tabs = $('#customer-tabs');
+  for (const [slug, name] of Object.entries(DATA.customers)) {
+    const b = document.createElement('button');
+    b.className = 'tab'; b.role = 'tab'; b.textContent = name; b.dataset.slug = slug;
+    b.addEventListener('click', () => { state.customer = slug; render(); });
+    tabs.appendChild(b);
+  }
+  // type filter options
+  for (const [code, name] of Object.entries(DATA.types)) {
+    const o = document.createElement('option'); o.value = code; o.textContent = name; $('#f-type').appendChild(o);
+  }
+  $('#meta').textContent = `Generated ${DATA.generated}`;
+  $('#footer').textContent = `Confidence = 0.45 × specificity + 0.40 × source reliability + 0.15 × corroboration (each scaled 0–1). Generated ${DATA.generated} by the Prologis customer-intelligence pipeline.`;
+
+  const inputs = { q: '#q', type: '#f-type', aud: '#f-aud', hor: '#f-hor', conf: '#f-conf' };
+  for (const [k, sel] of Object.entries(inputs)) {
+    const el = $(sel); el.value = state[k];
+    el.addEventListener('input', () => { state[k] = k === 'conf' ? parseFloat(el.value) : el.value; render(); });
+  }
+  $('#reset').addEventListener('click', () => { Object.assign(state, { q: '', type: '', aud: '', hor: '', conf: 0 }); for (const [k, sel] of Object.entries(inputs)) $(sel).value = state[k]; render(); });
+  document.querySelectorAll('.th-sort').forEach((th) => th.addEventListener('click', () => {
+    const key = th.dataset.sort; if (state.sort === key) state.dir *= -1; else { state.sort = key; state.dir = -1; } render();
+  }));
+
+  function filtered() {
+    const q = state.q.trim().toLowerCase();
+    return DATA.signals.filter((s) => s.customer === state.customer)
+      .filter((s) => !state.type || s.signal_code === state.type)
+      .filter((s) => !state.aud || s.audience === state.aud)
+      .filter((s) => !state.hor || s.horizon === state.hor)
+      .filter((s) => (s.confidence || 0) >= state.conf)
+      .filter((s) => !q || [s.headline, s.implication, s.go_do, s.geography, s.quote, s.magnitude].join(' ').toLowerCase().includes(q))
+      .sort((a, b) => { const x = a[state.sort] ?? '', y = b[state.sort] ?? ''; return (x > y ? 1 : x < y ? -1 : 0) * state.dir; });
+  }
+
+  function kpi(label, value, sub) {
+    return `<div class="card"><div class="card-h"><h2 class="card-t">${label}</h2></div><div class="card-b"><div class="kpi">${value}</div><div class="kpi-sub">${sub}</div></div></div>`;
+  }
+
+  function render() {
+    try { localStorage.setItem('ci-state', JSON.stringify(state)); } catch (e) {}
+    document.querySelectorAll('.tab').forEach((t) => t.setAttribute('aria-selected', t.dataset.slug === state.customer));
+    $('#f-conf-v').textContent = state.conf.toFixed(2);
+    const all = DATA.signals.filter((s) => s.customer === state.customer);
+    const rows = filtered();
+    $('#title').textContent = `${DATA.customers[state.customer] || ''} signals`;
+
+    const now = all.filter((s) => s.horizon === 'now').length;
+    const avg = all.length ? (all.reduce((a, s) => a + (s.confidence || 0), 0) / all.length) : 0;
+    const high = all.filter((s) => (s.confidence || 0) >= 0.8).length;
+    const sources = new Set(all.map((s) => s.source_url)).size;
+    $('#kpis').innerHTML = kpi('Verified signals', all.length, `${sources} distinct sources`) +
+      kpi('Act now', now, 'need a brief or an action this cycle') +
+      kpi('Watching', all.length - now, 'trends to monitor over 2+ quarters') +
+      kpi('Avg confidence', avg.toFixed(2), `${high} at 0.80 or above`);
+
+    // bars by type (single series, one hue)
+    const counts = {};
+    for (const s of all) counts[s.signal_code] = (counts[s.signal_code] || 0) + 1;
+    const max = Math.max(1, ...Object.values(counts));
+    $('#bars').innerHTML = Object.entries(counts).sort((a, b) => b[1] - a[1]).map(([code, n]) =>
+      `<div class="bar-row" role="button" tabindex="0" data-code="${esc(code)}" title="${esc(DATA.types[code] || code)}: ${n} signal${n === 1 ? '' : 's'}">
+        <span class="bar-label">${esc(DATA.types[code] || code)}</span>
+        <div class="bar-track"><div class="bar-fill" style="width:${(n / max * 100).toFixed(1)}%"></div></div>
+        <span class="bar-n">${n}</span></div>`).join('') || '<div class="empty">No signals yet</div>';
+    document.querySelectorAll('.bar-row').forEach((r) => r.addEventListener('click', () => { state.type = state.type === r.dataset.code ? '' : r.dataset.code; $('#f-type').value = state.type; render(); }));
+
+    // actions list
+    const acts = all.filter((s) => s.horizon === 'now' && s.go_do && !/^none/i.test(s.go_do)).sort((a, b) => b.confidence - a.confidence).slice(0, 8);
+    $('#actions-meta').textContent = `${acts.length} of ${now}`;
+    $('#actions').innerHTML = acts.map((s) => `<li><span class="pip" aria-hidden="true"></span><div><div>${esc(s.go_do)}</div><div class="who">${esc(AUD[s.audience] || s.audience || '')} · confidence ${(s.confidence || 0).toFixed(2)} · <a href="${esc(s.source_url)}" target="_blank" rel="noopener">source</a></div></div></li>`).join('') || '<li class="empty">Nothing flagged for action.</li>';
+
+    // table
+    $('#count').textContent = `${rows.length} of ${all.length}`;
+    $('#rows').innerHTML = rows.map((s) => {
+      const conf = (s.confidence || 0);
+      const none = !s.go_do || /^none/i.test(s.go_do);
+      return `<tr class="row">
+        <td>
+          <div class="mobile-label">Insight</div>
+          <div class="headline">${esc(s.headline)}</div>
+          <div class="badges">
+            <span class="badge ${esc(s.horizon)}">${s.horizon === 'now' ? 'Act now' : 'Watch'}</span>
+            <span class="badge">${esc(DATA.types[s.signal_code] || s.signal_code)}</span>
+            ${s.geography && s.geography !== 'unspecified' ? `<span class="badge">${esc(s.geography)}</span>` : ''}
+            ${s.magnitude && s.magnitude !== 'unspecified' ? `<span class="badge">${esc(s.magnitude)}</span>` : ''}
+          </div>
+          <div class="conf" title="Specificity ${s.specificity}/3 · reliability ${s.source_reliability}/3 · corroboration ${s.corroboration}"><div class="track"><div class="fill" style="width:${(conf * 100).toFixed(0)}%"></div></div><span class="v">${conf.toFixed(2)}</span></div>
+          <button class="quote-btn" type="button" aria-expanded="false">Show quote</button>
+          <div class="quote">“${esc(s.quote)}”</div>
+        </td>
+        <td class="src">
+          <div class="mobile-label">Source</div>
+          <a href="${esc(s.source_url)}" target="_blank" rel="noopener">${esc(SRC[s.source_type] || s.source_type)}</a>
+          <span class="kind">${esc(s.published_at || '')}${s.corroboration > 1 ? ` · ${s.corroboration} sources` : ''}</span>
+        </td>
+        <td><div class="mobile-label">What it means for Prologis</div>${esc(s.implication || '')}</td>
+        <td>
+          <div class="mobile-label">Action</div>
+          <div class="godo ${none ? 'none' : ''}">${esc(none ? 'None; monitor.' : s.go_do)}</div>
+          <div class="who">${esc(AUD[s.audience] || s.audience || '')}</div>
+        </td>
+      </tr>`;
+    }).join('') || `<tr><td colspan="4" class="empty">No signals match these filters.</td></tr>`;
+    document.querySelectorAll('.quote-btn').forEach((b) => b.addEventListener('click', () => {
+      const q = b.nextElementSibling; const open = q.classList.toggle('open');
+      b.textContent = open ? 'Hide quote' : 'Show quote'; b.setAttribute('aria-expanded', open);
+    }));
+  }
+  render();
+})();
+</script>
+</body>
+</html>

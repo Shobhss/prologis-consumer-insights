@@ -25,7 +25,8 @@ fetch  ->  normalize  ->  prefilter  ->  extract  ->  implicate  ->  report
    quote exists in the source. Unverified rows are kept for audit but never reported.
 5. **implicate**: a second Claude pass writes what each signal means for
    Prologis, a go-do for a named team, audience, and horizon, hedged to confidence.
-6. **report**: `signals.xlsx` and `brief.md` under `outputs/<customer>/<date>/`.
+6. **report**: `signals.xlsx` and `brief.md` under `outputs/<customer>/<date>/`, and
+   a refreshed `outputs/dashboard/index.html` covering every customer.
 
 The separation of extract and implicate is deliberate. It is the fix for the
 "AI takes leaps" problem Sarah described: facts are grounded first, reasoning
@@ -70,6 +71,24 @@ Run tests:
 .venv/bin/python -m unittest discover tests
 ```
 
+## Dashboard
+
+`outputs/dashboard/index.html` is a single self-contained page: KPI tiles, signals
+by type, the actions to take this cycle, and a filterable table with the insight,
+the source link, what it means for Prologis, and the go-do. Quotes expand inline.
+Light and dark mode. Design follows the shadcn/ui dashboard example.
+
+Regenerate with `python -m pipeline.cli dashboard` (the `report` stage also does it).
+
+Deploy the folder as a static site. With the Vercel CLI:
+
+```bash
+vercel deploy outputs/dashboard --prod
+```
+
+Or point a Vercel project at the repo with root directory `outputs/dashboard` and
+no build command. The page sets `noindex` so it stays out of search engines.
+
 ## Adding a customer
 
 Add one block to `config/customers.yaml` and run the pipeline with its slug.
@@ -103,6 +122,7 @@ advised against chasing them.
 | `pipeline/import_signals.py` | Import externally produced signals through the same checks |
 | `pipeline/implicate.py` | Implications, go-dos, audience, horizon |
 | `pipeline/report.py` | Excel and Markdown outputs |
+| `pipeline/dashboard.py` + `templates/dashboard.html` | Static HTML dashboard, all customers |
 | `pipeline/store.py` | SQLite schema |
 | `pipeline/cli.py` | Entry point |
 | `config/customers.yaml` | Customer list |

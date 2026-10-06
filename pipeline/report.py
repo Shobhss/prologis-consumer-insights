@@ -6,6 +6,7 @@ Outputs land in outputs/<customer>/<YYYY-MM-DD>/:
                   plus a Themes sheet rolling signals up by type and geography.
   brief.md      - "What's happening / Why it matters / What it means for Prologis /
                   What we're watching", top signals by confidence, every claim linked.
+Also refreshes outputs/dashboard/index.html (all customers) via dashboard.py.
 
 Only signals with quote_verified=1 and confidence >= min_confidence are included.
 """
@@ -103,4 +104,6 @@ def run(con, customer: str, min_confidence: float = 0.0) -> list[Path]:
     xlsx, brief = out / "signals.xlsx", out / "brief.md"
     write_excel(df, xlsx)
     write_brief(df, cust["name"], brief)
-    return [xlsx, brief]
+    from . import dashboard
+    dash = dashboard.run(con, min_confidence)
+    return [xlsx, brief, dash]

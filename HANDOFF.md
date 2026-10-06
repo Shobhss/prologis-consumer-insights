@@ -33,6 +33,15 @@ Running log for teammates picking this up. Newest first.
   run hung on `feedparser` and lost everything when killed.
 - `fetch/transcripts.py` skips URLs that fail instead of aborting the run.
 
+### Dashboard (added later the same day)
+- `pipeline/dashboard.py` renders `pipeline/templates/dashboard.html` into
+  `outputs/dashboard/index.html` with all verified signals embedded as JSON.
+  No build step; deploy the folder to Vercel. Checked in Chrome at desktop and
+  phone widths, light and dark.
+- The template is plain HTML/CSS/JS styled after shadcn/ui's dashboard example.
+  To change columns or filters edit the template; data fields come from `FIELDS`
+  in `dashboard.py`.
+
 ### Open items added
 - Local newspapers (Houston Chronicle, Star-Advertiser) are scored reliability 1 like
   blogs. Add a "regional press" list at reliability 2 in `config/sources.yaml`.

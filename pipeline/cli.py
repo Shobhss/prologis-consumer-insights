@@ -5,7 +5,8 @@
     python -m pipeline.cli prefilter --customer amazon
     python -m pipeline.cli extract   --customer amazon [--limit N] [--sections "Item 2,Item 7"]
     python -m pipeline.cli implicate --customer amazon
-    python -m pipeline.cli report    --customer amazon
+    python -m pipeline.cli report    --customer amazon      # also refreshes outputs/dashboard/
+    python -m pipeline.cli dashboard                        # dashboard only, all customers
     python -m pipeline.cli run       --customer amazon        # all stages
     python -m pipeline.cli status    [--customer amazon]
     python -m pipeline.cli feedback  --signal-id ID --verdict useful|not_useful|wrong [--note ...]
@@ -78,6 +79,12 @@ def cmd_report(args):
         print(p)
 
 
+def cmd_dashboard(args):
+    from . import dashboard
+    with store.connect() as con:
+        print(dashboard.run(con, min_confidence=args.min_confidence))
+
+
 def cmd_run(args):
     for fn in (cmd_fetch, cmd_normalize, cmd_prefilter, cmd_extract, cmd_implicate, cmd_report):
         fn(args)
@@ -126,6 +133,7 @@ def main(argv=None):
     s = add("extract", cmd_extract); s.add_argument("--limit", type=int); s.add_argument("--sections", help="comma list of section label prefixes")
     s = add("implicate", cmd_implicate); s.add_argument("--limit", type=int)
     s = add("report", cmd_report); s.add_argument("--min-confidence", type=float, default=0.0)
+    s = add("dashboard", cmd_dashboard, customer_required=False); s.add_argument("--min-confidence", type=float, default=0.0)
     s = add("run", cmd_run)
     for a, kw in (("--only", {}), ("--rebuild", {"action": "store_true"}), ("--force", {"action": "store_true"}),
                   ("--limit", {"type": int}), ("--sections", {}), ("--min-confidence", {"type": float, "default": 0.0})):
