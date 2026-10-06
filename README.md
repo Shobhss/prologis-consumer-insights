@@ -82,14 +82,17 @@ square-cornered cards and the cyan call-to-action accent.
 
 Regenerate with `python -m pipeline.cli dashboard` (the `report` stage also does it).
 
-Deploy the folder as a static site. With the Vercel CLI:
+Deploy from the repo. The root `vercel.json` tells Vercel to skip install and build
+(the repo also contains Python, which Vercel would otherwise try to run as a
+function) and to serve `outputs/dashboard` as static files. Connect the GitHub repo
+to a Vercel project with default settings, or from the CLI:
 
 ```bash
-vercel deploy outputs/dashboard --prod
+vercel --prod
 ```
 
-Or point a Vercel project at the repo with root directory `outputs/dashboard` and
-no build command. The page sets `noindex` so it stays out of search engines.
+The page sets `noindex` so it stays out of search engines. Commit a regenerated
+`outputs/dashboard/index.html` to publish new signals.
 
 ## Adding a customer
 
