@@ -14,7 +14,7 @@ from __future__ import annotations
 
 import re
 
-from .store import sha1
+from .store import abs_path, sha1
 
 CHUNK_CHARS = 6000
 OVERLAP_CHARS = 400
@@ -194,7 +194,7 @@ def build_chunks(con, customer: str | None = None, rebuild: bool = False) -> int
             con.execute("DELETE FROM chunks WHERE doc_id=?", (row["doc_id"],))
         elif con.execute("SELECT 1 FROM chunks WHERE doc_id=? LIMIT 1", (row["doc_id"],)).fetchone():
             continue
-        text = open(row["text_path"], encoding="utf-8").read()
+        text = abs_path(row["text_path"]).read_text(encoding="utf-8")
         for idx, (section, chunk) in enumerate(chunks_for_document(row["source_type"], text)):
             con.execute(
                 "INSERT OR REPLACE INTO chunks(chunk_id, doc_id, idx, section, text, n_chars) VALUES (?,?,?,?,?,?)",

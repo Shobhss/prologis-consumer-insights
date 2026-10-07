@@ -2,6 +2,21 @@
 
 Running log for teammates picking this up. Newest first.
 
+## 2026-10-07 (Shobhit): repo copied to the team repo, data now committed
+
+- Code, history and data now live in https://github.com/erichong1113/Prologis-Capstone
+  as well as https://github.com/Shobhss/prologis-consumer-insights. Both have the same commits.
+- `data/pipeline.sqlite` (101 documents, 428 chunks, 29 signals) and `data/raw/` are now
+  committed, so a fresh clone can run `normalize`, `extract`, `report` and `dashboard`
+  without re-fetching. Re-run `fetch` only to pull newer documents.
+- `documents.text_path` is now stored relative to the repo root (it was an absolute path
+  on Shobhit's laptop). `store.abs_path()` resolves both forms.
+- Six files in `data/raw/amazon/news/` have no database row: they were written during the
+  first news fetch, which was killed before committing. Three hold real signals (Crown
+  Point IN 1.2M sq ft, Visalia CA 1M sq ft, Waterbury CT 3.2M sq ft) but no source URL.
+  Open item: re-run `fetch --customer amazon --only news` to recover them with links.
+- The raw text includes full news articles and transcripts. Keep the repo private.
+
 ## 2026-10-05 (Shobhit): first Amazon signal table and brief, repo pushed
 
 ### State

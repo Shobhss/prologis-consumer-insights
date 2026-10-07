@@ -2,8 +2,9 @@
 __pycache__/
 *.pyc
 .env
-data/raw/
-data/*.sqlite
-outputs/*.xlsx
-outputs/*.md
-!outputs/.gitkeep
+.DS_Store
+# data/ is committed on purpose so teammates can skip the slow fetch stage.
+# SQLite journal files are not.
+data/*.sqlite-journal
+data/*.sqlite-wal
+data/*.sqlite-shm

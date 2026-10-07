@@ -1,0 +1,15 @@
+Global logistics powerhouse Kuehne+Nagel has signed a long-term deal cementing its existing collaboration with Amazon through which it provides supply chain services for the cloud computing giant's massive buildout of data centers and other infrastructure needs.
+Switzerland-based Kuehne+Nagel (SWX: KNIN) said Monday that the contract covers logistics services for any part of Amazon's business, but the primary focus is on supporting Amazon Web Services.
+K+N has been working with Amazon for at least two years, moving large amounts of servers and other cargo by air for data center construction and operations. Under the contract, K+N will expand management of Amazon's logistics and supply chain services beyond air to ocean, road and contract logistics, transporting equipment for the entire infrastructure lifecycle — from maintenance to upgrades and expansion projects around the world.
+K+N executives have previously said that their contract logistics contracts typically last for seven to 10 years.
+The deal grants Amazon the option to purchase K+N's existing shares based on reaching certain commercial milestones. The call option, which lasts for seven years, can be settled in cash or shares.
+Why It Matters: Large logistics companies in the past year have targeted the AI industry, which is investing hundreds of billions of dollars each year on data centers, as a major growth opportunity.
+K+N experienced strong demand from hyperscalers during the second quarter, especially on the trans-Pacific lane from China to the United States, CEO Stefan Paul said on the company's July 23 earnings call.
+During the past two years, the world's largest air freight forwarder has used its air network, including two owned Boeing 747-8 freighter aircraft operated on its behalf by Atlas Air, to move equipment for tech giants from Asia to the United States. K+N has since gotten more involved in data center construction by providing last-mile delivery with its trucking unit, managing sea-freight movements across the Pacific Ocean, and running 3.3 million square feet of warehouse space devoted to hyperscalers, he added.
+"I think this is the beginning. We expect that looking at the pipeline, in the U.S. and other markets for this tech hyperscaler marketplace, that the stickiness of our contract logistics organization and the capability now, including vendor management, has been proven. I have no doubts that we see more contracts coming in our way," Paul said.
+Click here for more FreightWaves/American Shipper stories by Eric Kulisch.
+Write to Eric Kulisch at ekulisch@freightwaves.com.
+RELATED STORIES:
+Legendary logistics executive Klaus-Michael Kuhne dead at 89
+Kuehne+Nagel to lay off 2,000 workers amid weak demand, AI push
+The post Kuehne+Nagel takes logistics lead for Amazon data center expansion appeared first on FreightWaves.

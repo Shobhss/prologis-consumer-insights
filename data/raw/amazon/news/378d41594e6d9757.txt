@@ -1,0 +1,47 @@
+Amazon’s plans to build a nearly 3,000-acre data center campus in Wharton County cleared a key hurdle recently when regulators approved groundwater permits needed for parts of the $10 billion project outside of Houston.
+The permits, which were hotly contested by Wharton County residents, would allow Amazon to tap into millions of gallons of groundwater a year for its office buildings and fire protection at the data center campus. The Coastal Bend Groundwater Conservation District issued the permits Sept. 8.
+The permits don’t include the millions of gallons in surface water Amazon is expected to need to cool the campus’ data center buildings, which could span more than 1.9 million square feet.
+Water is a central flashpoint in the national debate over the new wave
+Advertisement
+Article continues below this ad
+Amazon has said it would comply with Abbott’s water requests, disclose how much water it uses and avoid using groundwater to cool the data centers. The tech giant has also pledged to use technology to minimize its water use and fund regional water replenishment programs.
+Want more Houston Chronicle?
+Facing public pressure, the company has launched efforts to reach out to residents in the Boling area, which is located about an hour from downtown Houston.
+“Amazon focuses on developing data centers in places where we can be a strong, long-term partner and deliver meaningful local benefits,” said Josh Weissman, vice president of data center delivery at Amazon Web Services, in a statement. “We will continue to work with Wharton County officials and community members to help support initiatives that matter most to this community.”
+Advertisement
+Article continues below this ad
+The new permits allow the tech giant to tap into three wells to supply water for the project’s restrooms, for construction crews and for fire protection.
+Amazon could withdraw up to a total of 78.2 million gallons of groundwater over two and a half years from those wells, according to documents reviewed by the Chronicle. If that was distributed evenly over the permit period, that is equivalent to 31.2 million gallons annually, enough to support 285 average U.S.-sized households.
+Amazon also received permits in May allowing it to withdraw another 16.9 million gallons of water from two other wells by February 2029, according to documents from the Coastal Bend Groundwater District.
+Advertisement
+Article continues below this ad
+Those permitted volumes represent a ceiling, not a forecast, said Weissman of Amazon.The company said it expects to use a fraction of that: About 5.8 million gallons annually for restrooms, sinks and office buildings, plus 1.3 million gallons annually for fire suppression, enough to support roughly 66 households. The company also said some wells would be shut after construction was complete.
+Once the permits expire in three years, the company said it would adjust its requested groundwater supplies to reflect its actual use.
+Amazon’s water usage will not adversely impact water availability or water quality for nearby wells, according to a consultant’s study Amazon filed with the groundwater district.
+Yet many local residents remain concerned.
+Mike Johnson said he learned three days after closing on his new home that he would be living across the street from Amazon’s massive data center.
+Advertisement
+Article continues below this ad
+“It’s a real shock to us,” said Johnson. “We don't want to live next to that.”
+The data center is sure to impact the small community's “not great” drinking water wells, he said.
+RELATED: Data centers are facing scrutiny over their water usage. Here's why that's only part of the picture.
+Kandi Clark said she was worried how the project could impact the quality of life for her family of nine and their hard-earned investment, a home near the project site.
+“We live out there. We're on a well that's amongst the nine of us, and here now you have this coming in, and we're very concerned about it. I mean, all our eggs are in one basket,” Clark said.
+Advertisement
+Article continues below this ad
+But a judge overseeing Amazon’s permit application sided with the company, ruling that local residents couldn’t establish that the wells would harm residential groundwater.
+“Granting the application would result in negligible regional drawdown of the Chicot Aquifer and not affect the (local residents’) ability to produce groundwater” nor would it impact localized or regional water quality, wrote Administrative Judge Stephen B. Ables in his July 30 recommendation to the Coastal Bend Groundwater Conservation District.
+Though Amazon cleared this initial hurdle, a much larger need remains to cool the campus' 13 data center buildings.
+Amazon has said initially it would use air, not water, for cooling its first buildings. But as the project grows, the company may use surface water during the hottest hours of the year, company officials have said.
+Surface water is found above ground in rivers, lakes, reservoirs and canals. It is distinct from groundwater, which is pumped from underground aquifers through wells and is often the source of drinking water for rural homeowners.
+Amazon previously told the Lower Colorado River Authority that it expects to need about 500-acre feet of surface water annually, or enough to fill nearly 250 Olympic-sized swimming pools. The tech company hasn’t filed an application for the permits needed to tap into those resources, said Clara Tuma, a LCRA spokesperson.
+It is also still unclear how much electricity the Wharton County project will require, particularly as the project’s scale continues to evolve.
+June 2026 site plans reviewed by the Chronicle showed the campus would include 13 buildings: 10 data center facilities each about the size of a Walmart Superstore and three smaller buildings.
+This month, Amazon said the campus would include 13 data center buildings, but it did not specify the size of each facility. Each building could use about 60 megawatts of electricity, depending on final operating conditions, Weissman said.
+At that level, the combined demand for all of the buildings could reach 780 megawatts at a time — roughly enough to serve 195,000 residential customers during peak hours for the Electric Reliability Council of Texas (ERCOT).
+Amazon declined to confirm a total amount of electricity it would need for the project, citing ERCOT’s ongoing review of its plans. CenterPoint, which serves the project site, has also declined to comment.
+Local residents said they’re concerned about potential pollution from the on-site generators, which would serve as backup power sources, and whether the added power demand from the project could impact household bills.
+“I’m concerned about the electricity, seeing what happens with other data centers around the country, how their electric rates are skyrocketing,” said Clark, the mother of five who lives with her parents near the new build. And
+Clark said she was “not against big business,” pointing to how jobs at major companies supported the area’s economy. But she said the local economic impact would likely not be worth it in exchange for rising electricity costs, pollution and unreliable water.
+The tech company has previously committed to paying for its own electrical infrastructure upgrades and said it would work with local energy providers to avoid burdening ratepayers. It has also touted its investment in more than 10 gigawatts of energy supply across Texas, enough to support millions of homes.
+“Amazon is committed to responsible stewardship of both energy and water resources,” wrote Shannon Kellogg, vice president of Amazon Web Services Public Policy, in a June letter to Gov. Abbott’s office. “We design our facilities to minimize consumption and have invested heavily in efficiency innovations.”

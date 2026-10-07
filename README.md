@@ -135,8 +135,8 @@ advised against chasing them.
 | `config/prologis_context.md` | Prologis facts injected into the implication prompt |
 | `docs/` | Plan, signal taxonomy, source catalog, sample signal sets |
 | `tests/` | Unit tests for grounding, chunking, transcript parsing |
-| `data/` | SQLite store and raw text (git-ignored) |
-| `outputs/` | Generated reports (git-ignored except structure) |
+| `data/` | SQLite store and raw text, committed so clones can skip fetching |
+| `outputs/` | Generated reports and the dashboard |
 
 ## Confidence
 

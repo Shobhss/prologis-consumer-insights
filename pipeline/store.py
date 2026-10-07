@@ -81,6 +81,25 @@ CREATE TABLE IF NOT EXISTS feedback (
 """
 
 
+def rel_path(p) -> str:
+    """Store paths relative to the repo root so the database works in any clone."""
+    from .config import ROOT
+    from pathlib import Path
+    p = Path(p)
+    try:
+        return str(p.resolve().relative_to(ROOT))
+    except ValueError:
+        return str(p)
+
+
+def abs_path(p: str):
+    """Resolve a stored text_path (relative or legacy absolute) against the repo root."""
+    from .config import ROOT
+    from pathlib import Path
+    q = Path(p)
+    return q if q.is_absolute() else ROOT / q
+
+
 def now_iso() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
@@ -120,7 +139,7 @@ def upsert_document(con, *, customer, source_type, source_tier, title, url,
            published_at, retrieved_at, content_hash, n_chars, meta, text_path)
            VALUES (?,?,?,?,?,?,?,?,?,?,?,?)""",
         (doc_id, customer, source_type, source_tier, title, url, published_at,
-         now_iso(), content_hash, len(text), json.dumps(meta or {}), str(text_path)),
+         now_iso(), content_hash, len(text), json.dumps(meta or {}), rel_path(text_path)),
     )
     return doc_id, True
 

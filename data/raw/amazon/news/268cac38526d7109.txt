@@ -1,0 +1,23 @@
+Amazon is adding agentic supply chain capabilities for inbound planning and aged inventory on Seller Assistant, an artificial intelligence-powered tool inside the company’s Seller Central portal, Sunny Jain, VP of worldwide Fulfillment by Amazon, told Supply Chain Dive.
+Over time, the capabilities will expand into a personalized advisor across the seller’s global operations, showing where inventory is, providing proactive alerts and showing the data behind recommendations, according to a Thursday press release.
+“The vision here is that you've got a supply chain planner inside of Seller Assistant, which will make the decisions you need to make much faster,” Jain said.
+The new capabilities are part of Amazon’s larger push to help sellers gain real-time, end-to-end visibility beyond the U.S. Here's a rundown of other supply chain-focused upgrades Amazon announced this week.
+Unifying end-to-end visibility
+Amazon is also creating a single interface that tracks a shipment across Amazon-managed fulfillment centers.
+“Sellers will be able to understand not just where their product is, but when it's being received by the Amazon warehouses and fulfillment centers,” Jain said.
+Amazon’s first version of a consolidated view will help sellers more easily assess expansion opportunities internationally, rather than collecting disparate information across separate dashboards.
+“We're making some big changes in Seller Central, and we're introducing this unified view that will allow sellers to understand the demand that exists for each of their products and what the economics look like in each of those countries, and what exact steps remain for sellers before they can start selling there,” Jain said.
+The feature is currently available for sellers in the U.S., Europe and Japan, with more countries to come by the end of the year, according to the release. Future features will enable sellers to manage all listings, inventory and orders in one place. Systems will handle translations, flag compliance requirements and localize products to local currency.
+Meeting compliance requirements across countries
+Global supply chains can be very fragmented, as product listings must vary by country to meet compliance requirements, Jain said. In turn, Amazon plans to give a single view of compliance requirements across individual countries.
+“We're getting the compliance requirements of multiple countries, and we're going to surface them up in a consolidated fashion all at once, and this recommendation then helps sellers understand how they can create and develop their products, taking into consideration all of the compliance requirements for all of the countries that they want to list in,” Jain said.
+Existing certifications will also be recognized so sellers aren’t re-testing and re-submitting documentation, per the release. Sellers that participated in the pilot program for one-submission testing reported savings of up to 60% on compliance costs.
+This feature is now available for toys — a very complex sector from a compliance perspective — with plans to expand into electronics and baby products by the end of the year, the company said.
+“This is something when you pull it together, you can get the logistics, you can get the compliance, and you can get the listings all unified in a set of tools that makes life easy. That's the uniqueness here,” Jain said.
+Global Warehousing and Distribution expansion
+Amazon is also targeting a less-fragmented global logistics network through its Global Warehousing and Distribution service announced last year, which enables sellers to more easily replenish goods stored in bulk near manufacturing hubs such as Shenzhen, China.
+As part of an effort to unify operations, the e-commerce giant aims to boost efficiency by enabling sellers to have one global pool of inventory to manage, Jain said.
+“Our vision here is that sellers can no longer have to send separate batches of inventory to the individual countries,” Jain said. “They just send one batch, and Amazon's going to enable them by looking at what demand exists in each [country], and just shooting the inventory into those countries directly.”
+Amazon plans to expand Global Warehousing and Distribution's coverage, reaching more countries outside the U.S. — including the U.K., Japan, Germany, France, Italy, Spain and Canada — by the end of the year, per the release
+“The whole idea there is that sellers can send to an Amazon facility that's close to their manufacturing facility, and then we'll take care of the rest for them in terms of the distribution of that inventory,” Jain said.
+Clarification: This story has been updated to reflect when compliance features for certain product types will be available for sellers.
